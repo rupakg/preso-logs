@@ -34,6 +34,12 @@ Dashboard: Open browser at `localhost:5601`
 $ nc localhost 5000 < /path/to/logfile.log
 ```
 
+or by running a conatiner that sends its log to logstash:
+
+```
+$ docker run --log-driver=syslog --log-opt syslog-address=tcp://localhost:5000 hello-world
+```
+
 ### Use Kibana UI
 
 You need to inject data into Logstash before being able to configure a Logstash index pattern via the Kibana web UI. Then all you have to do is hit the *Create* button.
@@ -42,7 +48,7 @@ You need to inject data into Logstash before being able to configure a Logstash 
 
 Create an index pattern via the Kibana API:
 
-```console
+```
 $ curl -XPOST -D- 'http://localhost:5601/api/saved_objects/index-pattern' \
     -H 'Content-Type: application/json' \
     -H 'kbn-version: 6.4.2' \
